@@ -63,14 +63,15 @@ def run_time_decor(func):
 # Function of exponentiation
 @run_time_decor
 def degree_up(nums, factor=4):
-    num_dict = {}
+    num_dict = []
     for n in nums:
-        num_dict[n] = n ** factor
+        num = n ** factor
+        num_dict.append(num)
     return num_dict
 
 
-print(degree_up((1, 2, 3, 4, 5, 6, 7, 8)))
-print('Not decorated degree_up: ', degree_up.__wrapped__((1, 2, 3)))
+print('Decorated degree_up: ',degree_up((1, 2, 3, 4, 5, 6, 7, 8)))
+print('Not decorated degree_up: ', degree_up.__wrapped__((1, 2, 3, 4)))
 
 
 def num_simple_check(num):
