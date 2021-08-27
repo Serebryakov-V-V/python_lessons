@@ -63,18 +63,33 @@ def run_time_decor(func):
 # Function of exponentiation
 @run_time_decor
 def degree_up(nums, factor=4):
-    num_dict = {}
+    num_dict = []
     for n in nums:
-        num_dict[n] = n ** factor
+        num = n ** factor
+        num_dict.append(num)
     return num_dict
 
 
-print(degree_up((1, 2, 3, 4, 5, 6, 7, 8)))
-print('Not decorated degree_up: ' ,degree_up.__wrapped__((1,2,3)))
+print('Decorated degree_up: ',degree_up((1, 2, 3, 4, 5, 6, 7, 8)))
+print('Not decorated degree_up: ', degree_up.__wrapped__((1, 2, 3, 4)))
+
+
+def num_simple_check(num):
+    if num == 2:
+        return True
+    if num != 2:
+        d = 2
+        flag = True
+        while d < num:
+            if num % d == 0:
+                return False
+            d += 1
+        return True
+
 
 # Nums auto-filter functions in range
 @run_time_decor
-def numsFilter(nums):
+def nums_filter(nums):
     num_dict = {}
     for i, n in enumerate(range(nums)):
         if n == 0:
@@ -85,53 +100,36 @@ def numsFilter(nums):
         if n % 2 > 0:
             key = 'od-' + str(i)
             num_dict[key] = n
-        if n == 2:
+        if num_simple_check(n):
             key = 'si-' + str(i)
             num_dict[key] = n
-        if n != 2:
-            d = 2
-            flag = True
-            while d < n:
-                if n % d == 0:
-                    flag = False
-                    break
-                d += 1
-            if flag:
-                key = 'si-' + str(i)
-                num_dict[key] = n
     return num_dict
 
 
-print(numsFilter((30)))
+print('nums auto filter: ', nums_filter((30)))
 
 
 # Nums arg-filter functions
 @run_time_decor
-def numsFilterArgs(nums, type=NUM_TYPE_EVEN):
+def nums_filterArgs(nums, type=NUM_TYPE_EVEN):
     num_list = []
-    for n in nums:
-        if (type == 'odd') and (n % 2 > 0):
-            num_list.append(n)
-        if (type == 'even') and (n % 2 == 0):
-            num_list.append(n)
-        if (type == 'simple'):
-            if n == 2:
+    if (type == NUM_TYPE_ODD):
+        for n in nums:
+            if n % 2 > 0:
                 num_list.append(n)
-            if n != 2:
-                d = 2
-                flag = True
-                while d < n:
-                    if n % d == 0:
-                        flag = False
-                        break
-                    d += 1
-                if flag:
-                    num_list.append(n)
+    if (type == NUM_TYPE_EVEN):
+        for n in nums:
+            if n % 2 == 0:
+                num_list.append(n)
+    if (type == NUM_TYPE_SIMPLE):
+        for n in nums:
+            if num_simple_check(n):
+                num_list.append(n)
 
     return num_list
 
 
-print(numsFilterArgs((1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), NUM_TYPE_SIMPLE))
+print(NUM_TYPE_SIMPLE, ': ', nums_filterArgs((1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), NUM_TYPE_SIMPLE))
 
 
 # Fibonacci functions
@@ -143,7 +141,7 @@ def fib(position):
 
 # Fibonacci runner functions
 @run_time_decor
-def run_rib(position, renge=False):
+def run_fib(position, renge=False):
     if range:
         fib_lists = []
         for i in range(position):
@@ -153,7 +151,7 @@ def run_rib(position, renge=False):
         return fib(position)
 
 
-print(run_rib(10, True))
+print('Fibonache: ', run_fib(10, True))
 
 
 # Fibonacci runner functions generator
@@ -161,11 +159,10 @@ print(run_rib(10, True))
 def fib_run_gen(position):
     print('before generator')
     for i in range(position):
-        print('in generate: ', i)
         yield fib(i)
 
 
-print(list(fib_run_gen(20)))
+print('Fibonache generator:', list(fib_run_gen(20)))
 
 for fi in fib_run_gen(20):
     if fi > 40:
