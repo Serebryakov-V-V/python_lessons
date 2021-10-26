@@ -7,7 +7,7 @@ def main():
     product_1 = Сrossover('Toyota Prado', 5, 'Robot', 3)
     product_2 = PassengerBoat('Doral Prestancia', 10, '1.04 m')
     product_3 = PassengerPlane('Boeing 777X', 350)
-    product_4 = Сrossover('Creta', 0, 'Robot', 3)
+    product_4 = Сrossover('Creta', 20, 'Robot', 3)
 
     product_1.close_dors()
     product_1.fasten_belts()
@@ -26,6 +26,7 @@ def main():
     print(product_3.calculate_bagage_weith(20, 150))
     print(trasropter.total_capacity())
 
+    print(product_1.carrying_capacity)
     print(product_4.carrying_capacity)
 
 
