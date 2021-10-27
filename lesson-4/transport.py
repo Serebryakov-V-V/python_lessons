@@ -40,5 +40,7 @@ class Сrossover(PassengerCar):
     def caclc_power_reserve(fuel_consumption, fuel_remaining, fuel_type ='petrol'):
         if fuel_type == 'petrol':
             return (100 / fuel_consumption) * fuel_remaining
+        if fuel_consumption == 0:
+            raise ZeroDivisionError()
         else:
             raise TypeError()
