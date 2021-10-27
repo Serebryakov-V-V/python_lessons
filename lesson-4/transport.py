@@ -31,17 +31,14 @@ class Сrossover(PassengerCar):
         self.climat_cintroll_zone = climat_cintroll_zone
 
     def __repr__(self):
-        return f'{self.name} ({self.local_type}), seats:  {self.seat}, transmission  - {self.transmission}, Climat zone: {self.climat_cintroll_zone}'
+        return f'{self.name} ({self.local_type}),' f'seats:  {self.seat}, transmission  - {self.transmission},' f' Climat zone: {self.climat_cintroll_zone}'
 
     def __str__(self):
-        return f'{self.name} ({self.local_type}), seats:  {self.seat}, transmission  - {self.transmission}, Climat zone: {self.climat_cintroll_zone}'
-
-    @property
-    def carrying_capacity(self):
-        if Helpers.check_empty(self.seat):
-            return self.carrying_capacity
-        raise Ex.SeatsValueException('Empty seat value.')
+        return f'{self.name} ({self.local_type}),' f' seats:  {self.seat}, transmission  - {self.transmission},' f' Climat zone: {self.climat_cintroll_zone}'
 
     @staticmethod
-    def caclc_power_reserve(fuel_consumption, fuel_remaining):
-        return (100 / fuel_consumption) * fuel_remaining
+    def caclc_power_reserve(fuel_consumption, fuel_remaining, fuel_type ='petrol'):
+        if fuel_type == 'petrol':
+            return (100 / fuel_consumption) * fuel_remaining
+        else:
+            raise TypeError()
