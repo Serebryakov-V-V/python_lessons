@@ -26,18 +26,15 @@ class PassengerCar(BaseTransport):
     def __iter__(self):
         return (el for el in self.items)
 
-
     @staticmethod
     def make_sound():
         print('Bebeee')
 
     @property
     def carrying_capacity(self):
+        if self._carrying_capacity is None:
+            self.calc_carrying_capacity()
         return self._carrying_capacity
-
-    @carrying_capacity.setter
-    def carrying_capacity(self, carrying_capacity):
-        self._carrying_capacity = carrying_capacity
 
     def calc_carrying_capacity(self):
         if self.seat:
@@ -88,11 +85,9 @@ class PassengerBoat(BaseTransport):
 
     @property
     def carrying_capacity(self):
+        if self._carrying_capacity is None:
+            self.calc_carrying_capacity()
         return self._carrying_capacity
-
-    @carrying_capacity.setter
-    def carrying_capacity(self, carrying_capacity):
-        self._carrying_capacity = carrying_capacity
 
     def calc_carrying_capacity(self):
         if self.seat:
@@ -119,7 +114,6 @@ class PassengerPlane(BaseTransport):
     local_type = 'Air'
     _carrying_capacity = None
 
-
     def __init__(self, name, seat, staff):
         self.name = name
         self.seat = seat
@@ -139,11 +133,9 @@ class PassengerPlane(BaseTransport):
 
     @property
     def carrying_capacity(self):
+        if self._carrying_capacity is None:
+            self.calc_carrying_capacity()
         return self._carrying_capacity
-
-    @carrying_capacity.setter
-    def carrying_capacity(self, carrying_capacity):
-        self._carrying_capacity = carrying_capacity
 
     def calc_carrying_capacity(self):
         if self.seat:
