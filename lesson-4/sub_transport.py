@@ -4,8 +4,24 @@ from base_transport import BaseTransport
 from helper import Helpers
 
 
-# Base abstract
-class PassengerCar(BaseTransport):
+class CarryCapacityMixin():
+
+    def __init__(self):
+        self._carrying_capacity = None
+
+    @property
+    def carrying_capacity(self):
+        if self._carrying_capacity is None:
+            self.calc_carrying_capacity()
+        return self._carrying_capacity
+
+    @abstractmethod
+    def calc_carrying_capacity(self):
+        pass
+
+
+# Base class
+class PassengerCar(BaseTransport, CarryCapacityMixin):
     local_type = 'Land'
     _carrying_capacity = None
 
@@ -29,12 +45,6 @@ class PassengerCar(BaseTransport):
     @staticmethod
     def make_sound():
         print('Bebeee')
-
-    @property
-    def carrying_capacity(self):
-        if self._carrying_capacity is None:
-            self.calc_carrying_capacity()
-        return self._carrying_capacity
 
     def calc_carrying_capacity(self):
         if self.seat:
@@ -62,9 +72,9 @@ class PassengerCar(BaseTransport):
         print('Moving.')
 
 
-class PassengerBoat(BaseTransport):
+# Base class
+class PassengerBoat(BaseTransport, CarryCapacityMixin):
     local_type = 'Water'
-    _carrying_capacity = None
 
     def __init__(self, name, seat, draft):
         self.name = name
@@ -82,12 +92,6 @@ class PassengerBoat(BaseTransport):
 
     def __iter__(self):
         return (el for el in self.items)
-
-    @property
-    def carrying_capacity(self):
-        if self._carrying_capacity is None:
-            self.calc_carrying_capacity()
-        return self._carrying_capacity
 
     def calc_carrying_capacity(self):
         if self.seat:
@@ -110,9 +114,9 @@ class PassengerBoat(BaseTransport):
         print('Moving.')
 
 
-class PassengerPlane(BaseTransport):
+# Base class
+class PassengerPlane(BaseTransport, CarryCapacityMixin):
     local_type = 'Air'
-    _carrying_capacity = None
 
     def __init__(self, name, seat, staff):
         self.name = name
@@ -130,12 +134,6 @@ class PassengerPlane(BaseTransport):
 
     def __iter__(self):
         return (el for el in self.items)
-
-    @property
-    def carrying_capacity(self):
-        if self._carrying_capacity is None:
-            self.calc_carrying_capacity()
-        return self._carrying_capacity
 
     def calc_carrying_capacity(self):
         if self.seat:
