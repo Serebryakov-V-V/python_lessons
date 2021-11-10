@@ -1,6 +1,5 @@
-from sub_transport import PassengerBoat, PassengerCar, PassengerPlane
+from .sub_transport import PassengerBoat, PassengerCar, PassengerPlane
 from exceptions import exceptions_transport as Ex
-from helper import Helpers
 
 
 class Trasporters:
@@ -39,7 +38,12 @@ class Сrossover(PassengerCar):
     @staticmethod
     def caclc_power_reserve(fuel_consumption, fuel_remaining, fuel_type ='petrol'):
         if fuel_type == 'petrol':
-            if fuel_consumption == 0:
-                raise ZeroDivisionError()
-            else:
+            try:
                 return (100 / fuel_consumption) * fuel_remaining
+            except ZeroDivisionError:
+                return 10;
+        else:
+            raise ValueError('Error fuel_type is not "petrol"')
+
+    def power_reserve(self):
+        return self.caclc_power_reserve(self.fuel_consumption, self.fuel_remaining, 'petrol')

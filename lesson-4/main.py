@@ -1,5 +1,5 @@
-from sub_transport import PassengerBoat, PassengerPlane, PassengerCar
-from transport import Trasporters, Сrossover
+from .sub_transport import PassengerBoat, PassengerPlane, PassengerCar
+from .transport import Trasporters, Сrossover
 from exceptions import exceptions_transport as ex
 
 
