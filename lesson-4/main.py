@@ -1,5 +1,5 @@
-from .sub_transport import PassengerBoat, PassengerPlane, PassengerCar
-from .transport import Trasporters, Сrossover
+from sub_transport import PassengerBoat, PassengerPlane, PassengerCar
+from transport import Trasporters, Сrossover
 from exceptions import exceptions_transport as ex
 
 
@@ -37,9 +37,5 @@ if __name__  == '__main__':
     try:
         main()
     except ex.MovingException as e:
-        print(f'Error contruct class: {e.args}')
-    except TypeError as e:
-        print(f'Type of value: {e.args} error.')
-    except ValueError as e:
-        print(e)
+        print(f'Error construct class: {e.args}')
 

@@ -1,4 +1,4 @@
-from .sub_transport import PassengerBoat, PassengerCar, PassengerPlane
+from sub_transport import PassengerBoat, PassengerCar, PassengerPlane, CarryCapacityMixin
 from exceptions import exceptions_transport as Ex
 
 
@@ -22,7 +22,7 @@ class Trasporters:
 
 
 # Child base abstract
-class Сrossover(PassengerCar):
+class Сrossover(PassengerCar, CarryCapacityMixin):
     local_type = 'Сrossover'
 
     def __init__(self, name, seat, transmission, climat_cintroll_zone):
@@ -36,7 +36,7 @@ class Сrossover(PassengerCar):
         return f'{self.name} ({self.local_type}),' f' seats:  {self.seat}, transmission  - {self.transmission},' f' Climat zone: {self.climat_cintroll_zone}'
 
     @staticmethod
-    def caclc_power_reserve(fuel_consumption, fuel_remaining, fuel_type ='petrol'):
+    def caclc_power_reserve(fuel_consumption, fuel_remaining, fuel_type='petrol'):
         if fuel_type == 'petrol':
             try:
                 return (100 / fuel_consumption) * fuel_remaining

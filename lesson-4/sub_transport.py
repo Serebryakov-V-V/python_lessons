@@ -1,6 +1,6 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from exceptions import exceptions_transport as ex
-from .base_transport import BaseTransport
+from base_transport import BaseTransport
 
 
 class CarryCapacityMixin():
@@ -8,15 +8,11 @@ class CarryCapacityMixin():
     def __init__(self):
         self._carrying_capacity = None
 
-    @property
-    def carrying_capacity(self):
-        if self._carrying_capacity is None:
-            self.calc_carrying_capacity()
-        return self._carrying_capacity
-
-    @abstractmethod
     def calc_carrying_capacity(self):
-        pass
+        if self.seat:
+            self._carrying_capacity = self.seat * 80
+        else:
+            raise ValueError('Incorrect seat value.')
 
 
 # Base class
@@ -45,11 +41,11 @@ class PassengerCar(BaseTransport, CarryCapacityMixin):
     def make_sound():
         print('Bebeee')
 
-    def calc_carrying_capacity(self):
-        if self.seat:
-            self._carrying_capacity = self.seat * 80
-        else:
-            raise ValueError('Incorrect seat value.')
+    @property
+    def carrying_capacity(self):
+        if self._carrying_capacity is None:
+            self.calc_carrying_capacity()
+        return self._carrying_capacity
 
     def close_dors(self):
         self.close_dors = True
@@ -92,12 +88,6 @@ class PassengerBoat(BaseTransport, CarryCapacityMixin):
     def __iter__(self):
         return (el for el in self.items)
 
-    def calc_carrying_capacity(self):
-        if self.seat:
-            self._carrying_capacity = self.seat * 80
-        else:
-            raise ValueError('Incorrect seat value.')
-
     def raise_anchor(self):
         self.raise_anchor = True
 
@@ -133,12 +123,6 @@ class PassengerPlane(BaseTransport, CarryCapacityMixin):
 
     def __iter__(self):
         return (el for el in self.items)
-
-    def calc_carrying_capacity(self):
-        if self.seat:
-            self._carrying_capacity = self.seat * 80
-        else:
-            raise ValueError('Incorrect seat value.')
 
     def close_dors(self):
         self.close_dors = True

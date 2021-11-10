@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 # Meta class
 class BaseTransport(ABC):
 
@@ -8,8 +7,9 @@ class BaseTransport(ABC):
     def carrying_capacity(self):
         raise NotImplementedError('Property "carrying_capacity" not defined.')
 
+    @abstractmethod
     def calc_carrying_capacity(self):
-        raise NotImplementedError('Method "calc_carrying_capacity" not defined.')
+        pass
 
     def set_seat(self, seat):
         raise NotImplementedError('Method "set_seat" not defined.')
